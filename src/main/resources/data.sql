@@ -1,0 +1,1 @@
+insert into decks (name) values ('Default');
