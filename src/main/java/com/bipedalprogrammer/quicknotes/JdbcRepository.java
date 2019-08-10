@@ -3,7 +3,6 @@ package com.bipedalprogrammer.quicknotes;
 import com.bipedalprogrammer.quicknotes.model.Deck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -20,9 +19,15 @@ public class JdbcRepository {
     }
 
     public List<Deck> getDecks() {
-        return jdbcTemplate.query("select id, name from deck", (resultSet, i) -> {
+        return jdbcTemplate.query("select id, name from decks", (resultSet, i) -> {
            return toDeck(resultSet);
         });
+    }
+
+    public Deck getDeck(String name) {
+        return jdbcTemplate.query("select id, name from decks where name = ?", (resultSet, i) -> {
+            return toDeck(resultSet);
+        }).get(0);
     }
 
     private Deck toDeck(ResultSet resultSet) throws SQLException {
