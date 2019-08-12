@@ -1,5 +1,6 @@
 package com.bipedalprogrammer.quicknotes;
 
+import com.bipedalprogrammer.quicknotes.model.Card;
 import com.bipedalprogrammer.quicknotes.model.Deck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,9 @@ public class DeckService {
         return jdbcRepository.getDecks();
     }
 
-    public Deck getDeck(String name) {
-        return jdbcRepository.getDeck(name);
+    public Deck getDeck(Long id) {
+        return jdbcRepository.getDeck(id);
     }
+
+    public List<Card> getCards(Long id) { return jdbcRepository.getCards(id); }
 }

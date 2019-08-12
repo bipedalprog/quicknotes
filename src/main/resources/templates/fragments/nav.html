@@ -15,7 +15,7 @@
                     Decks
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a th:each="deck : ${decks}" th:text="${deck.name}" class="dropdown-item" th:href="@{'/deck/'+${deck.name}}"></a>
+                    <a th:each="deck : ${decks}" th:text="${deck.name}" class="dropdown-item" th:href="@{'/deck/'+${deck.id}}"></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">New...</a>
                 </div>

@@ -4,3 +4,13 @@ CREATE TABLE decks (
     id INT AUTO_INCREMENT  PRIMARY KEY,
     name VARCHAR(250) NOT NULL
 );
+
+DROP TABLE IF EXISTS cards;
+
+CREATE TABLE cards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    deck_id INT NOT NULL,
+    title VARCHAR(250),
+    content CLOB
+);
+

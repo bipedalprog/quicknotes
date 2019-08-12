@@ -1,13 +1,16 @@
 package com.bipedalprogrammer.quicknotes;
 
+import com.bipedalprogrammer.quicknotes.model.Card;
 import com.bipedalprogrammer.quicknotes.model.Deck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 @Repository
 public class JdbcRepository {
@@ -24,10 +27,15 @@ public class JdbcRepository {
         });
     }
 
-    public Deck getDeck(String name) {
-        return jdbcTemplate.query("select id, name from decks where name = ?", (resultSet, i) -> {
+    public Deck getDeck(Long id) {
+        return jdbcTemplate.query("select id, name from decks where id = ?", (resultSet, i) -> {
             return toDeck(resultSet);
-        }).get(0);
+        }, id).get(0);
+    }
+
+    public List<Card> getCards(long deckId) {
+        return jdbcTemplate.query(("select id, deck_id, title, content from cards where deck_id = ?"),
+                (resultSet, i) -> { return toCard(resultSet); }, deckId);
     }
 
     private Deck toDeck(ResultSet resultSet) throws SQLException {
@@ -35,5 +43,17 @@ public class JdbcRepository {
         deck.setId(resultSet.getLong("ID"));
         deck.setName(resultSet.getString("NAME"));
         return deck;
+    }
+
+    private Card toCard(ResultSet resultSet) throws SQLException {
+        Card card = new Card();
+        card.setId(resultSet.getLong("ID"));
+        card.setDeckId(resultSet.getLong("DECK_ID"));
+        card.setTitle(resultSet.getString("TITLE"));
+        InputStream is = resultSet.getAsciiStream("CONTENT");
+        String content =
+                new Scanner(is, "UTF-8").useDelimiter("\\A").next();
+        card.setContent(content);
+        return card;
     }
 }
