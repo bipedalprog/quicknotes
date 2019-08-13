@@ -8,3 +8,6 @@ authentication and authorization.
 
 Local development uses H2 for a data store. AWS and GCP deployments
 can use the native relational store.
+
+__NOTE__ You must use JDK 8 to compile this project. AWS ElasticBeanstalk 
+did not like the JDK 11 classfile format.

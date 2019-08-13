@@ -6,8 +6,8 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.bipedalprogrammer'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+version = '0.0.2-SNAPSHOT'
+sourceCompatibility = '8'
 
 repositories {
     mavenLocal()
