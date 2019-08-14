@@ -10,10 +10,12 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - gradlew clean build
+      - ./gradlew clean build
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build/libs/quicknotes-0.0.2-SNAPSHOT.jar
+    - build/libs/*.jar
+    - Procfile
+  discard-paths: yes

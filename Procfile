@@ -1,0 +1,1 @@
+web: java -jar quicknotes-0.0.2-SNAPSHOT.jar -Xms256m
