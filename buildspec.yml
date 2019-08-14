@@ -18,3 +18,4 @@ artifacts:
   files:
     - build/dist/quicknotes-ebs.zip
   discardPaths: yes
+  base-directory: build/dist
