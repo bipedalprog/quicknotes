@@ -16,5 +16,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build/dist/quicknotes-ebs.zip
+    - quicknotes-ebs.zip
   base-directory: build/dist
