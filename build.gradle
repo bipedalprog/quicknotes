@@ -25,3 +25,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 }
+
+task awsEbsPackage(type: Zip) {
+    archiveFileName = 'quicknotes-ebs.zip'
+    destinationDirectory = file("$buildDir/dist")
+    from "$buildDir/libs"
+    from "Procfile"
+}
