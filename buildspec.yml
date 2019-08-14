@@ -16,5 +16,6 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - quicknotes-ebs.zip
-  base-directory: build/dist
+    - build/libs/*.jar
+    - Procfile
+  discard-paths: yes
