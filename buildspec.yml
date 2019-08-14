@@ -11,9 +11,10 @@ phases:
     commands:
       - echo Build started on `date`
       - ./gradlew clean build
+      - ./gradlew awsEbsPackage
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - build/libs/quicknotes-0.0.2-SNAPSHOT.jar
+    - build/dist/quicknotes-ebs.zip
