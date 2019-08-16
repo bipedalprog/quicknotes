@@ -2,7 +2,9 @@ DROP TABLE IF EXISTS decks;
 
 CREATE TABLE decks (
     id INT AUTO_INCREMENT  PRIMARY KEY,
-    name VARCHAR(250) NOT NULL
+    name VARCHAR(250) NOT NULL,
+    updated TIMESTAMP,
+    accessed TIMESTAMP
 );
 
 DROP TABLE IF EXISTS cards;

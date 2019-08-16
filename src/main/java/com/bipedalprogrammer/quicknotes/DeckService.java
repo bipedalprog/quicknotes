@@ -9,15 +9,18 @@ import java.util.List;
 
 @Service
 public class DeckService {
-    private JdbcRepository jdbcRepository;
+    private DeckRepository jdbcRepository;
 
     @Autowired
-    public DeckService(JdbcRepository jdbcRepository) {
+    public DeckService(DeckRepository jdbcRepository) {
         this.jdbcRepository = jdbcRepository;
     }
 
     public List<Deck> getCurrentDecks() {
-        // TODO: just get most recent
+        return jdbcRepository.getRecentDecks(5);
+    }
+
+    public List<Deck> getDecks() {
         return jdbcRepository.getDecks();
     }
 
@@ -25,5 +28,8 @@ public class DeckService {
         return jdbcRepository.getDeck(id);
     }
 
-    public List<Card> getCards(Long id) { return jdbcRepository.getCards(id); }
+    public List<Card> getCards(Long id) {
+        jdbcRepository.updateAccessed(id);
+        return jdbcRepository.getCards(id);
+    }
 }

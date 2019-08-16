@@ -1,4 +1,4 @@
-insert into decks (name) values ('Default');
+insert into decks (name, updated, accessed) values ('Default', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 INSERT INTO cards (deck_id, title, content) values (1, 'Welcome', 'QuickNotes collects note cards into decks.');
 INSERT INTO cards (deck_id, title, content) values (1, 'What is a card?',
