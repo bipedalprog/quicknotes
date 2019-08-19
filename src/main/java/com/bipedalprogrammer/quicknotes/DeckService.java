@@ -32,4 +32,12 @@ public class DeckService {
         jdbcRepository.updateAccessed(id);
         return jdbcRepository.getCards(id);
     }
+
+    public boolean addCard(Card card) {
+        if (jdbcRepository.insertCard(card)) {
+            jdbcRepository.updateModified(card.getDeckId());
+            return true;
+        }
+        return false;
+    }
 }

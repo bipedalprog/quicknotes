@@ -43,14 +43,25 @@ public class JdbcRepository implements DeckRepository {
 
     @Override
     public List<Card> getCards(long deckId) {
-        updateAccessed(deckId);
         return jdbcTemplate.query(("select id, deck_id, title, content from cards where deck_id = ?"),
                 (resultSet, i) -> { return toCard(resultSet); }, deckId);
     }
 
     @Override
+    public boolean insertCard(Card card) {
+        int count = jdbcTemplate.update("INSERT INTO cards (deck_id, title, content) values (?, ?, ?)",
+                card.getDeckId(), card.getTitle(), card.getContent());
+        return (count == 1);
+    }
+
+    @Override
     public void updateAccessed(long deckId) {
         jdbcTemplate.update("UPDATE decks SET accessed = CURRENT_TIMESTAMP() WHERE id = ?", deckId);
+    }
+
+    @Override
+    public void updateModified(long deckId) {
+        jdbcTemplate.update("UPDATE decks SET updated = CURRENT_TIMESTAMP() WHERE id = ?", deckId);
     }
 
     private Deck toDeck(ResultSet resultSet) throws SQLException {

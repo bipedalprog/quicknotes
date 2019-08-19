@@ -13,6 +13,8 @@ public interface DeckRepository {
     Deck getDeck(Long id);
 
     List<Card> getCards(long deckId);
+    boolean insertCard(Card card);
 
     void updateAccessed(long deckId);
+    void updateModified(long deckId);
 }

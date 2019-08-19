@@ -17,7 +17,37 @@
             </div>
         </div>
     </div>
-</main>
+    <div th:if="deck" class="modal fade" id="editCard" tabindex="-1" role="dialog" aria-labelledby="editCardLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCardLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--/*@thymesVar id="card" type="com.bipedalprogrammer.quicknotes.model.Card"*/-->
+                    <form id="addCard" method="post" th:action="'/deck/' + ${deck.id}">
+                        <input type="hidden" id="deckId" name="deckId" th:data="${deck.id}">
+                        <div class="form-group">
+                            <label for="title">Card Title</label>
+                            <input id="title" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <textarea id="content" name="content" class="form-control" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="addCardSubmit" type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div></main>
 <div th:replace="fragments/footer :: footer-scripts"></div>
+<div th:replace="fragments/deckjs :: deck-scripts"></div>
 </body>
 </html>
