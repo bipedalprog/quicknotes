@@ -9,7 +9,7 @@
             // do something here with response;
         });
 });*/
-$( "addCard" ).on( "addCardSubmit", function( event ) {
+$( "#addCard" ).on( "click", "addCardSubmit", function( event ) {
     event.preventDefault();
     console.log( $( this ).serialize() );
 });

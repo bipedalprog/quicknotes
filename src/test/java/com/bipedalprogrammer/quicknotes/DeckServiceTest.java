@@ -13,10 +13,10 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.isNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class DeckServiceTest {
     @Mock
@@ -24,12 +24,14 @@ public class DeckServiceTest {
 
     @Before
     public void before() {
+        initMocks(this);
         Deck myDeck  = new Deck(1, "Test", new Timestamp(1L), new Timestamp(2L));
         List<Deck> myDecks = new ArrayList<>();
         myDecks.add(myDeck);
         List<Card> cards = Arrays.asList(new Card(), new Card());
         when(deckRepository.getDecks()).thenReturn(myDecks);
         when(deckRepository.getCards(anyLong())).thenReturn(cards);
+        doNothing().when(deckRepository).updateAccessed(anyLong());
     }
 
     @Test
@@ -37,7 +39,7 @@ public class DeckServiceTest {
         DeckService service = new DeckService(deckRepository);
         List<Deck> decks = service.getDecks();
         assertThat(decks.size(), equalTo(1));
-        assertThat(decks.get(0).getAccessed(), isNotNull());
+        assertThat(decks.get(0).getAccessed(), notNullValue());
     }
 
     @Test
@@ -45,7 +47,7 @@ public class DeckServiceTest {
         DeckService service = new DeckService(deckRepository);
         Deck deck = service.getDeck(1L);
         List<Card> cards = service.getCards(1L);
-        assertThat(deck.getAccessed(), greaterThan(new Timestamp(2)));
+        verify(deckRepository, times(1)).getCards(1);
     }
 
 }
